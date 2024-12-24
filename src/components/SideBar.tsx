@@ -1,85 +1,75 @@
-import React from 'react'
-import { AccountBox, Article, Home, Inbox, ModeNight, People, Person, Settings, Storefront } from '@mui/icons-material'
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Switch } from '@mui/material'
+import React from "react";
+import {
+  AccountBox,
+  Article,
+  Home,
+  ModeNight,
+  People,
+  Person,
+  Settings,
+  Storefront,
+} from "@mui/icons-material";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Switch,
+} from "@mui/material";
 
-type Props = {}
+interface SideBarProps {
+  mode: string;
+  setMode: (mode: string) => void;
+}
 
-const SideBar = ({ mode, setMode }: any) => (
-  <Box flex={1} p={2} sx={{
-    display: {
-      xs: 'none',
-      sm: 'block'
-    }
-  }}>
-    <Box position={'fixed'}>
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#home'>
-            <ListItemIcon>
-              <Home />
-            </ListItemIcon>
-            <ListItemText primary="Homepage" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <Article />
-            </ListItemIcon>
-            <ListItemText primary="Pages" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <People />
-            </ListItemIcon>
-            <ListItemText primary="Groups" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <Storefront />
-            </ListItemIcon>
-            <ListItemText primary="Maketplace" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <Person />
-            </ListItemIcon>
-            <ListItemText primary="Friends" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <Settings />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <AccountBox />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component='a' href='#simple-list'>
-            <ListItemIcon>
-              <ModeNight />
-            </ListItemIcon>
-            <Switch onChange={e => setMode(mode === 'light' ? 'dark' : 'light')} />
-          </ListItemButton>
-        </ListItem>
-      </List>
+const SideBar: React.FC<SideBarProps> = ({ mode, setMode }) => {
+  const menuItems = [
+    { text: "Homepage", icon: <Home />, href: "#home" },
+    { text: "Pages", icon: <Article />, href: "#simple-list" },
+    { text: "Groups", icon: <People />, href: "#simple-list" },
+    { text: "Marketplace", icon: <Storefront />, href: "#simple-list" },
+    { text: "Friends", icon: <Person />, href: "#simple-list" },
+    { text: "Settings", icon: <Settings />, href: "#simple-list" },
+    { text: "Profile", icon: <AccountBox />, href: "#simple-list" },
+  ];
+
+  return (
+    <Box
+      flex={1}
+      p={2}
+      sx={{
+        display: {
+          xs: "none",
+          md: "block",
+        },
+      }}
+    >
+      <Box position="fixed">
+        <List>
+          {menuItems.map((item, index) => (
+            <ListItem key={index} disablePadding>
+              <ListItemButton component="a" href={item.href}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ModeNight />
+              </ListItemIcon>
+              <Switch
+                onChange={() => setMode(mode === "light" ? "dark" : "light")}
+              />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
     </Box>
-  </Box>
-)
+  );
+};
 
-export default SideBar
+export default SideBar;
